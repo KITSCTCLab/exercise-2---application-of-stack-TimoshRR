@@ -49,8 +49,9 @@ class Evaluate:
       operand: The operand to be pushed.
     """
     # Write your code here
+    self.operand = operand
     if self.top == self.size_of_stack - 1:
-      self.stack.append(operand)
+      self.stack.append(self.operand)
       self.top+=1
 
 
@@ -63,14 +64,15 @@ class Evaluate:
       True if the expression is valid, else returns False.
     """
     # Write your code here
-     for i in expression:
+    self.expression = expression
+     for i in self.expression:
       if x=="+" or x=="-" or x== "/" or x=="*" or x=="%" or x=="**":
-        value1 = _pop()
-        value2 = _pop()
+        value1 = self._pop()
+        value2 = self._pop()
         dict = {"+" : operator.add, "-": operator.sub, "*": operator.mul, "/": operator.truediv, "%": operator.mod, "**": operator.pow}
-        push(dict[x](value2,value1))
+        self.push(dict[x](value2,value1))
       else:
-        push(int(x))
+        self.push(int(x))
         
         
     
@@ -85,16 +87,15 @@ class Evaluate:
       The result of evaluated postfix expression.
     """
     # Write your code here
-    for i in expression:
+    for i in self.expression:
       if x=="+" or x=="-" or x== "/" or x=="*" or x=="%" or x=="**":
-        value1 = _pop()
-        value2 = _pop()
-        dict = {"+" : operator.add, "-": operator.sub, "*": operator.mul, "/": operator.truediv, "%": operator.mod, "**": operator.pow}
-        push(dict[x](value2,value1))
+        value1 = self._pop()
+        value2 = self._pop()
+        dict = {"+" : operator.add, "-": operator.sub, "*": operator.mul, "/": operator.floordiv, "%": operator.mod, "**": operator.pow}
+        self.push(dict[x](value2,value1))
       else:
-        push(int(x))
-        
-        
+        self.push(int(x))
+    return self.stack[0]        
 
 
 # Do not change the following code
